@@ -25,7 +25,7 @@
 
 
 <body>
-@section('menu')
+
 <nav class="navbar navbar-expand-lg navbar-light bg-white shape-custom">
     <a class="navbar-brand" href="{{ url('/') }}">CRM</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,13 +41,13 @@
                 <div class="profile__link"><a href="#">Открыть профиль</a></div>
             </div>
             <div class="time">
-                <div class="time__time">{{ date('h:I') }}</div>
+                <div class="time__time">{{ date('H:i') }}</div>
                 <div class="time__date">{{ date('d F') }}</div>
             </div>
         </div>
     </div>
 </nav>
-@endsection
+
 
 <div class="row">
     @yield('content')
