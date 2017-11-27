@@ -23,7 +23,7 @@ class Event extends Model
 	 *
 	 * @var array
 	 */
-	protected $dates = ['deleted_at'];
+	protected $dates = ['date, created_at, updated_at, deleted_at'];
 
 	/**
 	 * Get the client that owns the event.
@@ -32,4 +32,11 @@ class Event extends Model
 	{
 		return $this->belongsTo('App\Client');
 	}
+
+	/**
+	 * The storage format of the model's date columns.
+	 *
+	 * @var string
+	 */
+	//protected $dateFormat = 'm.d.y H:i:s';
 }

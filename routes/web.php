@@ -15,8 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'ClientController@getAll')->name('home');
 
-Route::get('/clients', 'ClientController@getALL')->name('clients');
+Route::get('/clients/{id?}', 'ClientController@getALL')->name('clients');
+
+Route::get('/events/{id?}', 'EventController@getALL')->name('events');
+
+Route::get('/login', 'LoginController@logIn')->name('login');
+Route::post('/login', 'LoginController@authenticate');
+
+Route::get('/user', 'UserController@get')->name('user');
+
+
+

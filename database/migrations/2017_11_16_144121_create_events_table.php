@@ -19,7 +19,8 @@ class CreateEventsTable extends Migration
 			$table->increments('id');
 			$table->integer('client_id');
 			$table->enum('type', ['Предложение', 'Письмо', 'Звонок', 'Встреча', 'Договор']);
-			$table->time('date');
+			$table->dateTime('date');
+			$table->string('address')->nullable();
 			$table->text('comment')->nullable();
 			$table->timestamps();
 			$table->softDeletes();

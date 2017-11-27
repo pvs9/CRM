@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Client;
 use App\Event;
+use App\User;
+use App\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class EventController extends Controller
 {
 	/**
 	 * Create a new controller instance.
@@ -22,7 +23,11 @@ class ClientController extends Controller
 
 	public function getAll($id = null)
 	{
-		$clients = Client::where('user_id', Auth::id())->orderBy('id', 'asc')->get();
+
+		$events = User::find(Auth::id())->leftJoin('clients', 'users.id', '=', 'clients.user_id')
+			->leftJoin('events', 'clients.id', '=', 'events.client_id')
+			->select('clients.*', 'events.*')
+			->get();
 		if(isset($id) && $id != null) {
 			try {
 				$client = Client::findOrFail($id);
@@ -30,13 +35,13 @@ class ClientController extends Controller
 				$events = Event::where('client_id', $id)->orderBy('id', 'desc')->get();
 				$next = $events->min('id');
 				$nst_event = Event::find($next);
-				return view('clients', ['clients' => $clients, 'client_side' => $client, 'cl_events' => $cl_events, 'nst_event' => $nst_event]);
+				return view('events', ['events' => $events, 'client_side' => $client, 'cl_events' => $cl_events, 'nst_event' => $nst_event]);
 			} catch(\Exception $e)
 			{
 				unset($id);
-				return view('clients', ['clients' => $clients]);
+				return view('events', ['events' => $events]);
 			}
 		}
-		else return view('clients', ['clients' => $clients]);
+		else return view('events', ['events' => $events]);
 	}
 }

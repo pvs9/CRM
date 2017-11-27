@@ -20,6 +20,7 @@
     <script src="{{ asset('js/popper.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    @yield('add_scripts')
 
 </head>
 
@@ -37,8 +38,8 @@
 
         <div class="header__profile">
             <div class="profile">
-                <div class="profile__name">Аверкиев К.А.</div>
-                <div class="profile__link"><a href="#">Открыть профиль</a></div>
+                <div class="profile__name">{{ Auth::user()->last_name }} {{ substr(Auth::user()->first_name,0,2) }}.</div>
+                <div class="profile__link"><a href="{{ route('user') }}">Открыть профиль</a></div>
             </div>
             <div class="time">
                 <div class="time__time">{{ date('H:i') }}</div>

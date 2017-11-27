@@ -1,10 +1,7 @@
 
 @extends('layouts.crm')
 
-@section('title', 'Клиенты')
-@section('add_scripts')
-    <script src="{{ asset("js/moment.js") }}"></script>
-@endsection
+@section('title', 'События')
 
 @section('menu')
     <ul class="navbar-nav mr-auto">
@@ -14,11 +11,11 @@
         </li>
 
         <li class="nav-item ">
-            <a class="nav-link" href="{{ route('events') }}">События <span class="sr-only"></span></a>
+            <a class="nav-link active" href="{{ route('events') }}">События <span class="sr-only"></span></a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link active" href="{{ route('clients') }}">Клиенты</a>
+            <a class="nav-link" href="{{ route('clients') }}">Клиенты</a>
         </li>
 
         <li class="nav-item">
@@ -37,41 +34,32 @@
 
         <div class="card card-custom">
 
-            <div class="card-header"><h3 class="search-header">Клиенты</h3>
+            <div class="card-header"><h3 class="search-header">События</h3>
                 <div class="input-group" id="adv-search">
 
-                    <input type="text" id="table_search" class="form-control" placeholder="Поиск по клиентам" />
+                    <input type="text" class="form-control" placeholder="Поиск по событиям" />
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary">Поиск</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            @isset($clients)
+            @isset($events)
             <div class="card-body">
-                <table id="data_table" class="display table table-striped table-hover ">
+                <table class="table table-striped table-hover ">
                     <tbody>
-                    @foreach ($clients as $client)
-                    <tr>
-                        <td><a href="{{ route('clients', ['id' => $client->id]) }}">{{ $client->last_name }} {{ $client->first_name }} {{ $client->given_name }}</a></td>
-                        <td><a href="#"><i class="fa fa-phone" aria-hidden="true"></i>  Звонок</a></td>
-                        <td><a href="mailto:{{ $client->email }}"><i class="fa fa-envelope" aria-hidden="true"></i>  Письмо</a></td>
-                        <td>{{ $client->company }}</td>
+                    @foreach ($events as $event)
+                    <tr class="active-tr">
+                        <td><a href="{{ route('events', ['id' => $event->client_id]) }}">{{ $event->last_name }} {{ $event->first_name }} {{ $event->given_name }}</a></td>
+                        <td><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> Звонок</a></td>
+                        <td><a href="mailto:{{ $event->email }}"><i class="fa fa-envelope" aria-hidden="true"></i> Письмо</a></td>
+                        <td><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $event->type }}, {{ $event->date }}</a></td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
-                <script>
-					$(document).ready(function(){
-						$("#table_search").keyup(function(){
-							_this = this;
-							$.each($("#data_table tbody tr"), function() {
-								if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-									$(this).hide();
-								} else {
-									$(this).show();
-								}
-							});
-						});
-					});
-                </script>
             </div> <!-- Card Body end -->
             @endisset
         </div> <!-- Card end -->
@@ -122,19 +110,19 @@
 
                         <hr />
                         @isset($nst_event)
-                        <div class="block">
-                            <h5>Ближайшее событие </h5>
-                            <p> <h3> {{ $nst_event->type }} </h3><h6>{{ $nst_event->date }}</h6>{{ $nst_event->address }}</p>
+                            <div class="block">
+                                <h5>Ближайшее событие </h5>
+                                <p> <h3> {{ $nst_event->type }} </h3><h6>{{ $nst_event->date }}</h6>{{ $nst_event->address }}</p>
 
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Добавить комментарий о событии</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                </div>
-                                <button type="button" class="btn btn-primary">Сохранить</button>
-                                <button type="button" class="btn btn-secondary">Перенести</button>
-                            </form>
-                        </div> <!-- Next Event end -->
+                                <form>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Добавить комментарий о событии</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-primary">Сохранить</button>
+                                    <button type="button" class="btn btn-secondary">Перенести</button>
+                                </form>
+                            </div> <!-- Next Event end -->
                         @endisset
                         <hr />
 
@@ -187,18 +175,18 @@
 
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
                         @isset($cl_events)
-                        <div class="block">
-                            <button type="button" class="btn btn-secondary">История событий</button>
-                            <button type="button" class="btn btn-secondary">История звонков</button>
-                            <hr />
-                            @foreach ($cl_events as $event)
-                            <div id="history-event">
-                                <h5>{{ $event->created_at }}</h5>
-                                <p>Создано событие "{{ $event->type }}" на {{ $event->date }}. Адрес: {{ $event->address }}</p>
+                            <div class="block">
+                                <button type="button" class="btn btn-secondary">История событий</button>
+                                <button type="button" class="btn btn-secondary">История звонков</button>
                                 <hr />
-                            </div>
-                            @endforeach
-                        </div> <!-- Contact Data end -->
+                                @foreach ($cl_events as $cl_event)
+                                    <div id="history-event">
+                                        <h5>{{ $cl_event->created_at }}</h5>
+                                        <p>Создано событие "{{ $cl_event->type }}" на {{ $cl_event->date }}. Адрес: {{ $cl_event->address }}</p>
+                                        <hr />
+                                    </div>
+                                @endforeach
+                            </div> <!-- Contact Data end -->
                         @endisset
                     </div> <!-- History end -->
 
@@ -209,4 +197,3 @@
         </div> <!-- Column end -->
     @endisset
 @endsection
-
