@@ -43,7 +43,7 @@
 
         <div class="card card-custom">
 
-            <div class="card-header"><h3 class="search-header">Клиенты</h3>
+            <div class="card-header"><h3 class="search-header">Доска клиентов</h3>
                 <div class="input-group" id="adv-search">
 
                     <input type="text" id="table_search" class="form-control" placeholder="Поиск по клиентам" />
@@ -124,27 +124,27 @@
                         <div>
                             <button type="button" id="phone" class="btn btn-primary"><i class="fa fa-phone" aria-hidden="true"></i> Звонок</button>
                             <a href="mailto:{{ $client_side->email }}"><button type="button" class="btn btn-secondary"><i class="fa fa-envelope" aria-hidden="true"></i> Письмо</button></a>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Забрать</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deskModal"> Забрать</button>
                         </div>
                     </div> <!-- Info Block end -->
                     <div class="modal fade" id="deskModal" tabindex="-1" role="dialog" aria-labelledby="deskModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id=" deskModalLabel">Новый клиент</h5>
+                                    <h5 class="modal-title" id=" deskModalLabel">Клиент</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" action="{{ route('client_transfer', ['id' => $client_side->id]) }}">
+                                    <form method="POST" action="{{ route('client_take', ['id' => $client_side->id]) }}">
                                         {{ csrf_field() }}
                                         <div class="form-group">
-                                            <p>Вы точно хотите поместить клиента на доску?</p>
+                                            <p>Вы точно хотите забрать клиента на доску?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                                            <button type="submit" class="btn btn-primary">Отправить</button>
+                                            <button type="submit" class="btn btn-primary">Забрать</button>
                                         </div>
                                     </form>
                                 </div>
