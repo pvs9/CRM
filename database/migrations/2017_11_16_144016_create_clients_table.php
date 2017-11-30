@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
 			$table->engine = 'InnoDB';
 
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('user_id')->nullable();
 			$table->string('last_name', 25)->nullable();
 			$table->string('first_name', 25)->nullable();
 			$table->string('given_name', 25)->nullable();

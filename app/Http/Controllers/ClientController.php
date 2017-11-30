@@ -22,7 +22,12 @@ class ClientController extends Controller
 
 	public function getAll($id = null)
 	{
-		$clients = Client::where('user_id', Auth::id())->orderBy('id', 'asc')->get();
+		if(Auth::user()->is_admin == 1){
+			$clients = Client::all();
+		}
+		else {
+			$clients = Client::where('user_id', Auth::id())->orderBy('id', 'asc')->get();
+		}
 		if(isset($id) && $id != null) {
 			try {
 				$client = Client::findOrFail($id);
@@ -47,6 +52,33 @@ class ClientController extends Controller
 		else return view('clients', ['clients' => $clients]);
 	}
 
+	public function getDesk($id = null)
+	{
+		$clients = Client::where('user_id', NULL)->orderBy('id', 'asc')->get();
+		if(isset($id) && $id != null) {
+			try {
+				$client = Client::findOrFail($id);
+				$cl_events = Event::withTrashed()->where('client_id', $id)->orderBy('id', 'desc')->get();
+				$events = Event::where('client_id', $id)->orderBy('id', 'desc')->get();
+				if(count($events) == 0) {
+					unset($nst_event);
+					return view('desk', ['clients' => $clients, 'client_side' => $client, 'cl_events' => $cl_events]);
+				}
+				else {
+					$next=$events->min('id');
+					$nst_event=Event::findOrFail($next);
+					return view('desk',['clients'=>$clients,'client_side'=>$client,
+						'cl_events'=>$cl_events,'nst_event'=>$nst_event]);
+				}
+			} catch(\Exception $e)
+			{
+				unset($id);
+				return view('desk', ['clients' => $clients]);
+			}
+		}
+		else return view('desk', ['clients' => $clients]);
+	}
+
 	public function create(Request $request)
 	{
 		$client = new Client;
@@ -59,6 +91,24 @@ class ClientController extends Controller
 		$client->email = $request->input('email');
 		$client->telephone = $request->input('telephone');
 		$client->telephone2 = $request->input('telephone2');
+		$client->save();
+
+		return redirect()->intended('clients');
+	}
+
+	public function take($id)
+	{
+		$client = Client::find($id);
+		$client->user_id = Auth::id();
+		$client->save();
+
+		return redirect()->intended('desk');
+	}
+
+	public function transfer($id)
+	{
+		$client = Client::find($id);
+		$client->user_id = null;
 		$client->save();
 
 		return redirect()->intended('clients');

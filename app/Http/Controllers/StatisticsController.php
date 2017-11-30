@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Statistic;
-use App\User;
-use App\Client;
-use App\Events\EventCompleted;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class StatisticController extends Controller
+class StatisticsController extends Controller
 {
 	/**
 	 * Create a new controller instance.
@@ -109,7 +106,7 @@ class StatisticController extends Controller
 					"pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
 					"pointHoverBackgroundColor" => "#fff",
 					"pointHoverBorderColor" => "rgba(220,220,220,1)",
-					'data' => [$january->events, $february->events, $march->events, $april->events, $may->events, $june->events, $july->events, $august->events, $september->events, $october->events, $november->events, $december->events],
+					'data' => [20, 15, 30, 17, 21, 18, 16, 22, 27, 31, 18, 19],
 				],
 				[
 					"label" => "Закрытые сделки",
@@ -119,10 +116,43 @@ class StatisticController extends Controller
 					"pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
 					"pointHoverBackgroundColor" => "#fff",
 					"pointHoverBorderColor" => "rgba(220,220,220,1)",
-					'data' => [$january->events_closed, $february->events_closed, $march->events_closed, $april->events_closed, $may->events_closed, $june->events_closed, $july->events_closed, $august->events_closed, $september->events_closed, $october->events_closed, $november->events_closed, $december->events_closed ],
+					'data' => [10, 9, 5, 11, 8, 17, 16, 20, 21, 7, 11, 5],
 				]
 			])
 			->options([]);
-		return view('profile',compact('statistic'),compact('calls'));
+		return view('profile',compact('statistic'));
+	}
+
+	public function get(Request $request)
+	{
+		$statistic = app()->chartjs
+			->name('lineChartTest')
+			->type('line')
+			->size(['width' => 400, 'height' => 200])
+			->labels(['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'])
+			->datasets([
+				[
+					"label" => "Созданные события",
+					'backgroundColor' => "rgba(38, 185, 154, 0.31)",
+					'borderColor' => "rgba(38, 185, 154, 0.7)",
+					"pointBorderColor" => "rgba(38, 185, 154, 0.7)",
+					"pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+					"pointHoverBackgroundColor" => "#fff",
+					"pointHoverBorderColor" => "rgba(220,220,220,1)",
+					'data' => [120, 115, 130, 117, 121, 118, 116, 122, 127, 131, 118, 119],
+				],
+				[
+					"label" => "Закрытые сделки",
+					'backgroundColor' => "rgba(38, 185, 154, 0.31)",
+					'borderColor' => "rgba(38, 185, 154, 0.7)",
+					"pointBorderColor" => "rgba(38, 185, 154, 0.7)",
+					"pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+					"pointHoverBackgroundColor" => "#fff",
+					"pointHoverBorderColor" => "rgba(220,220,220,1)",
+					'data' => [110, 19, 15, 111, 18, 117, 116, 120, 121, 17, 111, 15],
+				]
+			])
+			->options([]);
+		return view('statistics',compact('statistic'));
 	}
 }

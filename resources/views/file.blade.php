@@ -23,7 +23,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">Статистика</a>
+            <a class="nav-link" href="{{ route('statistics') }}">Статистика</a>
         </li>
 
     </ul>
@@ -60,10 +60,10 @@
                         <h4>Поля файла</h4>
 
                         <div id="dragfields">
-                            <div id="dragitem" class="field-block" draggable="true">Кликуха</div>
-                            <div id="dragitem" class="field-block" draggable="true">По Батьке</div>
-                            <div id="dragitem" class="field-block" draggable="true">Банда</div>
-                            <div id="dragitem"class="field-block" draggable="true">Зад</div>
+                            <div id="dragitem" class="field-block" draggable="true">Столбец1</div>
+                            <div id="dragitem" class="field-block" draggable="true">Столбец2</div>
+                            <div id="dragitem" class="field-block" draggable="true">Столбец3</div>
+                            <div id="dragitem"class="field-block" draggable="true">Столбец4</div>
                         </div>
 
                     </div>
