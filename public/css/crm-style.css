@@ -136,3 +136,39 @@ nav {
 	float: left;
 	margin-right: 20px;
 }
+
+[draggable] {
+	/* Prevent the text contents of draggable elements from being selectable. */
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	/* Required to make elements draggable in old WebKit */
+	-khtml-user-drag: element;
+	-webkit-user-drag: element;
+}
+
+.autoblock {
+	background-color: white !important;
+	color: black !important;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	border: 2px solid #349E92;
+}
+
+.field-block {
+	cursor: move;
+	color: white;
+	padding: 10px;
+	vertical-align: middle;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	border: 2px solid #349E92;
+	background-color: #349E92;
+}
+
+.field-block.over {
+	background-color: #FFF;
+	color: #349E92;
+}

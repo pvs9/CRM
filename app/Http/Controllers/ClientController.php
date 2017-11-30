@@ -28,9 +28,16 @@ class ClientController extends Controller
 				$client = Client::findOrFail($id);
 				$cl_events = Event::withTrashed()->where('client_id', $id)->orderBy('id', 'desc')->get();
 				$events = Event::where('client_id', $id)->orderBy('id', 'desc')->get();
-				$next = $events->min('id');
-				$nst_event = Event::find($next);
-				return view('clients', ['clients' => $clients, 'client_side' => $client, 'cl_events' => $cl_events, 'nst_event' => $nst_event]);
+				if(count($events) == 0) {
+					unset($nst_event);
+					return view('clients', ['clients' => $clients, 'client_side' => $client, 'cl_events' => $cl_events]);
+				}
+				else {
+					$next=$events->min('id');
+					$nst_event=Event::findOrFail($next);
+					return view('clients',['clients'=>$clients,'client_side'=>$client,
+						'cl_events'=>$cl_events,'nst_event'=>$nst_event]);
+				}
 			} catch(\Exception $e)
 			{
 				unset($id);
@@ -38,5 +45,27 @@ class ClientController extends Controller
 			}
 		}
 		else return view('clients', ['clients' => $clients]);
+	}
+
+	public function create(Request $request)
+	{
+		$client = new Client;
+		$client->user_id = Auth::id();
+		$client->last_name = $request->input('last_name');
+		$client->first_name = $request->input('first_name');
+		$client->given_name = $request->input('given_name');
+		$client->company = $request->input('company');
+		$client->position = $request->input('position');
+		$client->email = $request->input('email');
+		$client->telephone = $request->input('telephone');
+		$client->telephone2 = $request->input('telephone2');
+		$client->save();
+
+		return redirect()->intended('clients');
+	}
+
+	public function import()
+	{
+		return view('file');
 	}
 }

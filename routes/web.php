@@ -11,21 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 Route::get('/home', 'ClientController@getAll')->name('home');
 
 Route::get('/clients/{id?}', 'ClientController@getALL')->name('clients');
+Route::post('/clients', 'ClientController@create')->name('client_create');
+Route::get('/import', 'ClientController@import')->name('import');
 
 Route::get('/events/{id?}', 'EventController@getALL')->name('events');
+Route::post('/events/{id}', 'EventController@complete')->name('event_delete');
+Route::post('/event', 'EventController@create')->name('event_create');
+Route::post('/transfer', 'EventController@transfer')->name('event_transfer');
 
 Route::get('/login', 'LoginController@logIn')->name('login');
 Route::post('/login', 'LoginController@authenticate');
+Route::get('/logout', 'LoginController@logOut')->name('logout');
 
-Route::get('/user', 'UserController@get')->name('user');
+Route::get('/user', 'StatisticController@getUser')->name('user');
 
+Route::post('/excel', 'ExcelController@load')->name('excel_load');
+Route::get('/excel', 'ExcelController@analize');
+
+Route::get('/{pass}', function ($pass) {
+	return bcrypt($pass);
+});
 
 

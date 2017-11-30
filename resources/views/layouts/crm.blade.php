@@ -42,9 +42,26 @@
                 <div class="profile__link"><a href="{{ route('user') }}">Открыть профиль</a></div>
             </div>
             <div class="time">
-                <div class="time__time">{{ date('H:i') }}</div>
+                <div class="time__time"></div>
                 <div class="time__date">{{ date('d F') }}</div>
             </div>
+            <script>
+				window.onload = function() {
+
+					var date, hours, minutes, time;
+					function getDate() {
+						date = new Date();
+						hours = date.getHours();
+						minutes = date.getMinutes();
+						if(date.getMinutes() < 10) {
+							minutes = '0' + String(minutes);
+						}
+						time = hours+':'+minutes;
+						document.getElementsByClassName('time__time')[0].innerHTML = time;
+					}
+					setInterval(getDate(), 1000);
+				};
+            </script>
         </div>
     </div>
 </nav>

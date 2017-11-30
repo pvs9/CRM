@@ -21,6 +21,6 @@ class UserController extends Controller
 
 	public function get()
 	{
-		return view('profile', ['user' => Auth::user()]);
+		return view('profile',compact('events'),compact('calls'));
 	}
 }

@@ -23,7 +23,7 @@ class Event extends Model
 	 *
 	 * @var array
 	 */
-	protected $dates = ['date, created_at, updated_at, deleted_at'];
+	protected $dates = ['date', 'created_at', 'updated_at', 'deleted_at'];
 
 	/**
 	 * Get the client that owns the event.
@@ -38,5 +38,5 @@ class Event extends Model
 	 *
 	 * @var string
 	 */
-	//protected $dateFormat = 'm.d.y H:i:s';
+	//protected $dateFormat = 'm-d-y H:i:s';
 }

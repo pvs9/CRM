@@ -3,11 +3,15 @@
 
 @section('title', 'Профиль')
 
+@section('add_scripts')
+    <script src="{{ asset('js/Chart.bundle.js') }}"></script>
+@endsection
+
 @section('menu')
     <ul class="navbar-nav mr-auto">
 
         <li class="nav-item">
-            <a class="nav-link" href="#">Файл</a>
+            <a class="nav-link" href="{{ route('import') }}">Файл</a>
         </li>
 
         <li class="nav-item ">
@@ -38,14 +42,8 @@
 
 
             <div class="card-body">
-                <div class="graph">
-                    Это блок с графиком
-                </div>
-                <div class="graph">
-                    Это блок с графиком
-                </div>
-                <div class="graph">
-                    Это блок с графиком
+                <div>
+                    {!! $statistic->render() !!}
                 </div>
             </div> <!-- Card Body end -->
         </div> <!-- Card end -->
@@ -80,30 +78,23 @@
                         <h5>Показатели </h5>
                         <p><h3> 255 </h3> сделок закрыто </p>
 
-                        <p><h3> 160 </h3> минут звонков </p>
                     </div> <!-- Last Comment end -->
 
-                    <hr />
+                        <hr />
 
 
-                    <div class="block">
+                        <div class="block">
 
 
-                        <button type="button" class="btn btn-primary">Редактировать информацию</button>
-                        <button type="button" class="btn btn-secondary">Выйти</button>
+                            {{--<button type="button" class="btn btn-primary">Редактировать информацию</button> --}}
+                            <a href="{{ route('logout') }}"><button type="button" class="btn btn-secondary">Выйти</button></a>
+                        </div>
+                </div> <!-- New Event end -->
 
-
-                    </div> <!-- New Event end -->
-
-                </div> <!-- General end -->
-
-
-
-
-
+            </div> <!-- General end -->
             </div> <!-- Tab Body end -->
 
         </div> <!-- Card end -->
 
     </div> <!-- Column end -->
-@endsection
+    @endsection

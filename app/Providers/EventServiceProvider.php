@@ -16,6 +16,13 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+		'App\Events\EventCompleted' => [
+			'App\Listeners\UpdateLastComment',
+			'App\Listeners\UpdateEventsClosed',
+		],
+		'App\Events\EventCreated' => [
+			'App\Listeners\UpdateEvents',
+		]
     ];
 
     /**

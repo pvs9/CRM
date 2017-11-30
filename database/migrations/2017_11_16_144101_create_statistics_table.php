@@ -17,8 +17,11 @@ class CreateStatisticsTable extends Migration
 			$table->engine = 'InnoDB';
 
 			$table->increments('id');
-			$table->integer('manager_id');
-			$table->enum('type', ['Предложение', 'Письмо', 'Звонок', 'Встреча', 'Договор']);
+			$table->integer('user_id');
+			$table->enum('month', ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
+			$table->integer('year');
+			$table->integer('events');
+			$table->integer('events_closed');
 			$table->timestamps();
 			$table->softDeletes();
 		});
