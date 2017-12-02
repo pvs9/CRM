@@ -113,9 +113,4 @@ class ClientController extends Controller
 
 		return redirect()->intended('clients');
 	}
-
-	public function import()
-	{
-		return view('file');
-	}
 }

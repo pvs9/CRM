@@ -10,9 +10,9 @@
 @section('menu')
     <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item">
+        {{--  <li class="nav-item">
             <a class="nav-link" href="{{ route('import') }}">Файл</a>
-        </li>
+        </li> --}}
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('events') }}">События <span class="sr-only"></span></a>
@@ -26,9 +26,9 @@
             <a class="nav-link" href="{{ route('clients') }}">Клиенты</a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="#">Маркетинг</a>
-        </li>
+        </li> --}}
 
         <li class="nav-item">
             <a class="nav-link active" href="{{ route('statistics') }}">Статистика</a>

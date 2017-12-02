@@ -17,7 +17,7 @@ class CreateStatisticsTable extends Migration
 			$table->engine = 'InnoDB';
 
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('user_id')->nullable();
 			$table->enum('month', ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']);
 			$table->integer('year');
 			$table->integer('events');

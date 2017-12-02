@@ -67,8 +67,8 @@ class EventController extends Controller
 	{
 		try {
 			if($request->input('old_id') != null) {
-				$old_event=Event::find($request->input('old_id'));
-				$old_event->forceDelete();
+				Event::destroy($request->input('old_id'));
+
 			}
 
 			$event = new Event;

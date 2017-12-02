@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Support\Facades\Auth;
+use App\Statistic;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -18,22 +18,23 @@ class UserController extends Controller
 		$this->middleware('auth');
 	}
 
-
-	public function get()
-	{
-		return view('profile',compact('events'),compact('calls'));
-	}
-
 	public function create(Request $request)
 	{
-		$user = new User;
-		$user->last_name = $request->input('last_name');
-		$user->first_name = $request->input('first_name');
-		$user->position = $request->input('position');
-		$user->email = $request->input('email');
-		$user->password = bcrypt($request->input('password'));
-		$user->is_admin = 0;
-		$user->save();
+		$user = User::create(['last_name' => $request->input('last_name'), 'first_name' => $request->input('first_name'), 'position' => $request->input('position'), 'email' => $request->input('email'), 'password' => bcrypt($request->input('password')), 'is_admin' => 0]);
+
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'January', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'February', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'March', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'April', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'May', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'June', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'July', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'August', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'September', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'October', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'November', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
+										['user_id' => $user->id, 'month' => 'December', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0]
+		);
 
 		return redirect()->intended('profile');
 	}
