@@ -22,20 +22,19 @@ class UserController extends Controller
 	{
 		$user = User::create(['last_name' => $request->input('last_name'), 'first_name' => $request->input('first_name'), 'position' => $request->input('position'), 'email' => $request->input('email'), 'password' => bcrypt($request->input('password')), 'is_admin' => 0]);
 
-		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'January', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'February', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'March', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'April', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'May', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'June', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'July', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'August', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'September', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'October', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'November', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
-										['user_id' => $user->id, 'month' => 'December', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0]
-		);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'January', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'February', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'March', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'April', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'May', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'June', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'July', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'August', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'September', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'October', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'November', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+		$statistics = Statistic::create(['user_id' => $user->id, 'month' => 'December', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]);
 
-		return redirect()->intended('profile');
+		return redirect()->intended('user');
 	}
 }

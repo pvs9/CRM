@@ -78,13 +78,13 @@
 
                 <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
 
-                    <div class="block">
+                    {{-- <div class="block">
                         <h5>Показатели </h5>
                         <p><h3> 255 </h3> сделок закрыто </p>
 
                     </div> <!-- Last Comment end -->
 
-                        <hr />
+                        <hr />--}}
 
 
                         <div class="block">
@@ -118,19 +118,20 @@
                                         {{ csrf_field() }}
                                         <div class="form-group">
                                             <label for="exampleInputName">Основное</label>
-                                            <input class="form-control" name="last_name" id="exampleInputName2" aria-describedby="pnameHelp" placeholder="Фамилия">
+                                            <input class="form-control" name="last_name" id="exampleInputName2" aria-describedby="pnameHelp" placeholder="Фамилия" required>
                                             <br/>
-                                            <input class="form-control" name="first_name" id="exampleInputName1" aria-describedby="pnameHelp" placeholder="Имя">
+                                            <input class="form-control" name="first_name" id="exampleInputName1" aria-describedby="pnameHelp" placeholder="Имя" required>
                                             <hr/>
                                             <label for="exampleInputEmail1">Email</label>
                                             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" required>
                                             <small id="emailHelp" class="form-text text-muted">Основной Email, используемый в качестве логина.</small>
                                             <br/>
                                             <label for="exampleInputEmail1">Пароль</label>
-                                            <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Пароль" required>
+                                            <input type="password" name="password" class="form-control" id="exampleInputPassword" aria-describedby="passwordHelp" placeholder="Пароль" required>
+                                            <small id="passwordHelp" class="form-text text-muted">Пароль должен быть не короче 6 символов.</small>
                                             <hr/>
                                             <label for="exampleInputPhone1">Должность</label>
-                                            <input name="position" class="form-control" id="exampleInputPhone1" aria-describedby="phoneHelp" placeholder="Должность">
+                                            <input name="position" class="form-control" id="exampleInputPhone1" aria-describedby="phoneHelp" placeholder="Должность" required>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>

@@ -35,8 +35,6 @@ Route::get('/statistics', 'StatisticsController@get')->name('statistics');
 Route::post('/user', 'UserController@create')->name('user_create');
 
 Route::get('/desk/{id?}', 'ClientController@getDesk')->name('desk');
-//Route::get('/{pass}', function ($pass) {
-	//return bcrypt($pass);
-//});
+
 
 

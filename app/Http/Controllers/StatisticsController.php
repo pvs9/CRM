@@ -22,30 +22,30 @@ class StatisticsController extends Controller
 	{
 		if(Auth::user()->is_admin != 1) {
 			$january=Statistic::where(['user_id'=>Auth::id(),'month'=>'January',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$february=Statistic::where(['user_id'=>Auth::id(),'month'=>'February',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$march=Statistic::where(['user_id'=>Auth::id(),'month'=>'March',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$april=Statistic::where(['user_id'=>Auth::id(),'month'=>'April',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$may=
 				Statistic::where(['user_id'=>Auth::id(),'month'=>'May','year'=>date("Y")])
-					->get();
+					->first();
 			$june=Statistic::where(['user_id'=>Auth::id(),'month'=>'June',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$july=Statistic::where(['user_id'=>Auth::id(),'month'=>'July',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$august=Statistic::where(['user_id'=>Auth::id(),'month'=>'August',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$september=Statistic::where(['user_id'=>Auth::id(),'month'=>'September',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$october=Statistic::where(['user_id'=>Auth::id(),'month'=>'October',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$november=Statistic::where(['user_id'=>Auth::id(),'month'=>'November',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 			$december=Statistic::where(['user_id'=>Auth::id(),'month'=>'December',
-				'year'=>date("Y")])->get();
+				'year'=>date("Y")])->first();
 
 			$statistic=app()->chartjs
 				->name('lineChartTest')
@@ -79,31 +79,18 @@ class StatisticsController extends Controller
 		}
 
 		else {
-			$january=Statistic::where(['user_id'=>null,'month'=>'January',
-				'year'=>date("Y")])->get();
-			$february=Statistic::where(['user_id'=>null,'month'=>'February',
-				'year'=>date("Y")])->get();
-			$march=Statistic::where(['user_id'=>null,'month'=>'March',
-				'year'=>date("Y")])->get();
-			$april=Statistic::where(['user_id'=>null,'month'=>'April',
-				'year'=>date("Y")])->get();
-			$may=
-				Statistic::where(['user_id'=>null,'month'=>'May','year'=>date("Y")])
-					->get();
-			$june=Statistic::where(['user_id'=>null,'month'=>'June',
-				'year'=>date("Y")])->get();
-			$july=Statistic::where(['user_id'=>null,'month'=>'July',
-				'year'=>date("Y")])->get();
-			$august=Statistic::where(['user_id'=>null,'month'=>'August',
-				'year'=>date("Y")])->get();
-			$september=Statistic::where(['user_id'=>null,'month'=>'September',
-				'year'=>date("Y")])->get();
-			$october=Statistic::where(['user_id'=>null,'month'=>'October',
-				'year'=>date("Y")])->get();
-			$november=Statistic::where(['user_id'=>null,'month'=>'November',
-				'year'=>date("Y")])->get();
-			$december=Statistic::where(['user_id'=>null,'month'=>'December',
-				'year'=>date("Y")])->get();
+			$january=Statistic::find(1);
+			$february=Statistic::find(2);
+			$march=Statistic::find(3);
+			$april=Statistic::find(4);
+			$may=Statistic::find(5);
+			$june=Statistic::find(6);
+			$july=Statistic::find(7);
+			$august=Statistic::find(8);
+			$september=Statistic::find(9);
+			$october=Statistic::find(10);
+			$november=Statistic::find(11);
+			$december=Statistic::find(12);
 
 			$statistic=app()->chartjs
 				->name('lineChartTest')
@@ -140,31 +127,18 @@ class StatisticsController extends Controller
 
 	public function get(Request $request)
 	{
-		$january=Statistic::where(['user_id'=>null,'month'=>'January',
-			'year'=>date("Y")])->get();
-		$february=Statistic::where(['user_id'=>null,'month'=>'February',
-			'year'=>date("Y")])->get();
-		$march=Statistic::where(['user_id'=>null,'month'=>'March',
-			'year'=>date("Y")])->get();
-		$april=Statistic::where(['user_id'=>null,'month'=>'April',
-			'year'=>date("Y")])->get();
-		$may=
-			Statistic::where(['user_id'=>null,'month'=>'May','year'=>date("Y")])
-				->get();
-		$june=Statistic::where(['user_id'=>null,'month'=>'June',
-			'year'=>date("Y")])->get();
-		$july=Statistic::where(['user_id'=>null,'month'=>'July',
-			'year'=>date("Y")])->get();
-		$august=Statistic::where(['user_id'=>null,'month'=>'August',
-			'year'=>date("Y")])->get();
-		$september=Statistic::where(['user_id'=>null,'month'=>'September',
-			'year'=>date("Y")])->get();
-		$october=Statistic::where(['user_id'=>null,'month'=>'October',
-			'year'=>date("Y")])->get();
-		$november=Statistic::where(['user_id'=>null,'month'=>'November',
-			'year'=>date("Y")])->get();
-		$december=Statistic::where(['user_id'=>null,'month'=>'December',
-			'year'=>date("Y")])->get();
+		$january=Statistic::find(1);
+		$february=Statistic::find(2);
+		$march=Statistic::find(3);
+		$april=Statistic::find(4);
+		$may=Statistic::find(5);
+		$june=Statistic::find(6);
+		$july=Statistic::find(7);
+		$august=Statistic::find(8);
+		$september=Statistic::find(9);
+		$october=Statistic::find(10);
+		$november=Statistic::find(11);
+		$december=Statistic::find(12);
 
 		$statistic = app()->chartjs
 			->name('lineChartTest')
