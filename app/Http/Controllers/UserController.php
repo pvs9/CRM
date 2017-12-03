@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Statistic;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateUser;
 
 class UserController extends Controller
 {
@@ -18,7 +18,7 @@ class UserController extends Controller
 		$this->middleware('auth');
 	}
 
-	public function create(Request $request)
+	public function create(CreateUser $request)
 	{
 		$user = User::create(['last_name' => $request->input('last_name'), 'first_name' => $request->input('first_name'), 'position' => $request->input('position'), 'email' => $request->input('email'), 'password' => bcrypt($request->input('password')), 'is_admin' => 0]);
 

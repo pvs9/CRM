@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Event;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateClient;
 
 class ClientController extends Controller
 {
@@ -79,7 +79,7 @@ class ClientController extends Controller
 		else return view('desk', ['clients' => $clients]);
 	}
 
-	public function create(Request $request)
+	public function create(CreateClient $request)
 	{
 		$client = new Client;
 		$client->user_id = Auth::id();

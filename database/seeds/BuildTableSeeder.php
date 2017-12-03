@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class StatisticsTableSeeder extends Seeder
+class BuildTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,5 +23,9 @@ class StatisticsTableSeeder extends Seeder
 			['user_id' => null, 'month' => 'October', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
 			['user_id' => null, 'month' => 'November', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0],
 			['user_id' => null, 'month' => 'December', 'date' => date("Y"), 'events' => 0, 'events_closed' => 0]);
+
+		DB::table('users')->insert(['last_name' => 'Администратор', 'first_name' => 'Администратор', 'email' => 'admin@admin.ru', 'password' => bcrypt('TheCRMAdministrator'), 'position' => 'Руководитель', 'is_admin' => 1]);
     }
+
+
 }
