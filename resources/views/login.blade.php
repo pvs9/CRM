@@ -4,17 +4,38 @@
 @section('title', 'Вход')
 
 @section('content')
-    <div class="container signin">
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+    @if ((count($errors) > 0) || (Session::has('error')))
+            <div class="modal" id="errorModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ошибка</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                    @if (Session::has('error'))
+                                        <li>{{ Session::get('error') }}</li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
-
+            <script>
+    			$('#errorModal').modal('show');
+            </script>
+    @endif
         <form class="form-signin" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
 

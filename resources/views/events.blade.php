@@ -12,9 +12,9 @@
 @section('menu')
     <ul class="navbar-nav mr-auto">
 
-        {{--  <li class="nav-item">
-            <a class="nav-link" href="{{ route('import') }}">Файл</a>
-        </li> --}}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('file') }}">Файл</a>
+        </li>
 
         <li class="nav-item ">
             <a class="nav-link active" href="{{ route('events') }}">События <span class="sr-only"></span></a>
@@ -40,6 +40,38 @@
 @endsection
 
 @section('content')
+    @if ((count($errors) > 0) || (Session::has('error')))
+            <div class="modal" id="errorModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ошибка</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                    @if (Session::has('error'))
+                                        <li>{{ Session::get('error') }}</li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+    			$('#errorModal').modal('show');
+            </script>
+    @endif
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
         <div class="card card-custom">
@@ -125,47 +157,8 @@
                         <div>
                             <button type="button" id="phone" class="btn btn-primary"><i class="fa fa-phone" aria-hidden="true"></i> Звонок</button>
                             <a href="mailto:{{ $client_side->email }}"><button type="button" class="btn btn-secondary"><i class="fa fa-envelope" aria-hidden="true"></i> Письмо</button></a>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Забрать</button>
                         </div>
                     </div> <!-- Info Block end -->
-                    <div class="modal fade" id="deskModal" tabindex="-1" role="dialog" aria-labelledby="deskModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id=" deskModalLabel">Новый клиент</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="POST" action="{{ route('client_transfer', ['id' => $client_side->id]) }}">
-                                        {{ csrf_field() }}
-                                        <div class="form-group">
-                                            <p>Вы точно хотите поместить клиента на доску?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                                            <button type="submit" class="btn btn-primary">Отправить</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-						('#deskModal').on('shown.bs.modal', function () {
-							$('#myInput').focus()
-						})
-						$(function () {
-							$('[data-toggle="tooltip"]').tooltip()
-						})
-
-						// Initialize popover component
-						$(function () {
-							$('[data-toggle="popover"]').popover()
-						})
-                    </script>
 
                     <hr />
 

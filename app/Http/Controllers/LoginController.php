@@ -10,6 +10,7 @@ class LoginController extends Controller
 	/**
 	 * Handle an authentication attempt.
 	 *
+	 * @param Request $request
 	 * @return Response
 	 */
 	public function authenticate(Request $request)
@@ -18,7 +19,7 @@ class LoginController extends Controller
 			// Authentication passed...
 			return redirect()->intended('clients');
 		}
-		else return redirect()->intended('login');
+		else return redirect()->back();
 	}
 
 	public function logIn()

@@ -18,7 +18,7 @@ class StatisticsController extends Controller
 		$this->middleware('auth');
 	}
 
-	public function getUser(Request $request)
+	public function getUser()
 	{
 		if(Auth::user()->is_admin != 1) {
 			$january=Statistic::where(['user_id'=>Auth::id(),'month'=>'January',
@@ -125,7 +125,7 @@ class StatisticsController extends Controller
 		return view('profile',compact('statistic'));
 	}
 
-	public function get(Request $request)
+	public function get()
 	{
 		$january=Statistic::find(1);
 		$february=Statistic::find(2);

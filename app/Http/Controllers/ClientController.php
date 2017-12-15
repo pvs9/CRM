@@ -46,7 +46,7 @@ class ClientController extends Controller
 			} catch(\Exception $e)
 			{
 				unset($id);
-				return view('clients', ['clients' => $clients]);
+				return view('clients', ['clients' => $clients])->with('error', $e->getMessage());
 			}
 		}
 		else return view('clients', ['clients' => $clients]);
@@ -73,7 +73,7 @@ class ClientController extends Controller
 			} catch(\Exception $e)
 			{
 				unset($id);
-				return view('desk', ['clients' => $clients]);
+				return view('desk', ['clients' => $clients])->with('error', $e->getMessage());
 			}
 		}
 		else return view('desk', ['clients' => $clients]);
@@ -81,36 +81,48 @@ class ClientController extends Controller
 
 	public function create(CreateClient $request)
 	{
-		$client = new Client;
-		$client->user_id = Auth::id();
-		$client->last_name = $request->input('last_name');
-		$client->first_name = $request->input('first_name');
-		$client->given_name = $request->input('given_name');
-		$client->company = $request->input('company');
-		$client->position = $request->input('position');
-		$client->email = $request->input('email');
-		$client->telephone = $request->input('telephone');
-		$client->telephone2 = $request->input('telephone2');
-		$client->save();
-
-		return redirect()->intended('clients');
+		try {
+			$client = new Client;
+			$client->user_id = Auth::id();
+			$client->last_name = $request->input('last_name');
+			$client->first_name = $request->input('first_name');
+			$client->given_name = $request->input('given_name');
+			$client->company = $request->input('company');
+			$client->position = $request->input('position');
+			$client->email = $request->input('email');
+			$client->telephone = $request->input('telephone');
+			$client->telephone2 = $request->input('telephone2');
+			$client->save();
+		} catch(\Exception $e)
+		{
+			return redirect()->back()->with('error', $e->getMessage());
+		}
+		return redirect()->back();
 	}
 
 	public function take($id)
 	{
-		$client = Client::find($id);
-		$client->user_id = Auth::id();
-		$client->save();
-
-		return redirect()->intended('desk');
+		try {
+			$client = Client::find($id);
+			$client->user_id = Auth::id();
+			$client->save();
+		} catch(\Exception $e)
+		{
+			return redirect()->back()->with('error', $e->getMessage());
+		}
+		return redirect()->back();
 	}
 
 	public function transfer($id)
 	{
-		$client = Client::find($id);
-		$client->user_id = null;
-		$client->save();
-
-		return redirect()->intended('clients');
+		try {
+			$client=Client::find($id);
+			$client->user_id=NULL;
+			$client->save();
+		} catch(\Exception $e)
+		{
+			return redirect()->back()->with('error', $e->getMessage());
+		}
+		return redirect()->back();
 	}
 }

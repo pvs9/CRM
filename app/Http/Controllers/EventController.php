@@ -42,7 +42,7 @@ class EventController extends Controller
 			} catch(\Exception $e)
 			{
 				unset($id);
-				return view('events', ['events' => $events]);
+				return view('events', ['events' => $events])->with('error', $e->getMessage());
 			}
 		}
 		else return view('events', ['events' => $events]);
@@ -58,9 +58,9 @@ class EventController extends Controller
 			Event::destroy($id);
 		} catch(\Exception $e)
 		{
-			return redirect()->intended('events');
+			return redirect()->back()->with('error', $e->getMessage());
 		}
-		return redirect()->intended('events');
+		return redirect()->back();
 	}
 
 	public function create(Request $request)
@@ -68,9 +68,7 @@ class EventController extends Controller
 		try {
 			if($request->input('old_id') != null) {
 				Event::destroy($request->input('old_id'));
-
 			}
-
 			$event = new Event;
 			$event->client_id = $request->input('client_id');
 			$event->type = $request->input('type');
@@ -80,9 +78,9 @@ class EventController extends Controller
 			$event->save();
 		} catch(\Exception $e)
 		{
-			return redirect()->intended('events');
+			return redirect()->back()->with('error', $e->getMessage());
 		}
-		return redirect()->intended('events');
+		return redirect()->back();
 	}
 
 	public function transfer(Request $request)
@@ -93,8 +91,8 @@ class EventController extends Controller
 			$event->save();
 		} catch(\Exception $e)
 		{
-			return redirect()->intended('events');
+			return redirect()->back()->with('error', $e->getMessage());
 		}
-		return redirect()->intended('events');
+		return redirect()->back();
 	}
 }

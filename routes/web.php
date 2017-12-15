@@ -36,5 +36,8 @@ Route::post('/user', 'UserController@create')->name('user_create');
 
 Route::get('/desk/{id?}', 'ClientController@getDesk')->name('desk');
 
+Route::get('/file', 'ExcelController@get')->name('file');
+Route::post('/file', 'ExcelController@importExcel')->name('import');
+
 
 

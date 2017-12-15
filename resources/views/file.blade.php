@@ -7,7 +7,7 @@
     <ul class="navbar-nav mr-auto">
 
         <li class="nav-item">
-            <a class="nav-link active" href="{{ route('import') }}">Файл</a>
+            <a class="nav-link active" href="{{ route('file') }}">Файл</a>
         </li>
 
         <li class="nav-item ">
@@ -30,42 +30,59 @@
 @endsection
 
 @section('content')
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-
-        <div class="card card-custom">
-
-            <div class="card-header"><h3 class="search-header">Настройка полей</h3>
-
+    @if ((count($errors) > 0) || (Session::has('error')))
+            <div class="modal" id="errorModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ошибка</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                    @if (Session::has('error'))
+                                        <li>{{ Session::get('error') }}</li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
-
+            <script>
+    			$('#errorModal').modal('show');
+            </script>
+    @endif
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        <div class="card card-custom">
+            <div class="card-header"><h3 class="search-header">Настройка полей</h3></div>
             <div class="card-body">
 
                 <div class="row">
                     <div class="col">
-
                         <h4>Поля системы</h4>
-
                         <div class="field-block autoblock">Имя</div>
                         <div class="field-block autoblock">Фамилия</div>
                         <div class="field-block autoblock">Компания</div>
                         <div class="field-block autoblock">Жопа</div>
-
                     </div>
-
                     <div class="col">
-
                         <h4>Поля файла</h4>
-
                         <div id="dragfields">
                             <div id="dragitem" class="field-block" draggable="true">Столбец1</div>
                             <div id="dragitem" class="field-block" draggable="true">Столбец2</div>
                             <div id="dragitem" class="field-block" draggable="true">Столбец3</div>
                             <div id="dragitem"class="field-block" draggable="true">Столбец4</div>
                         </div>
-
                     </div>
                 </div>
 
@@ -77,13 +94,9 @@
         <div class="card card-custom">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" role="tablist" id="sideTab">
-
                     <li class="nav-item">
                         <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true" >Загружка файла</a>
                     </li>
-
-
-
                 </ul>
             </div> <!-- Card Header end -->
 
@@ -94,28 +107,17 @@
                     <h5>Выберите файл</h5>
 
 
-                    <form method="POST" action="{{ route('excel_load') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('import') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input name="excel" type="file" style="margin-bottom: 20px;">
 
                         <button type="submit" class="btn btn-primary">Сохранить</button>
                     </form>
                 </div> <!-- Next Event end -->
-
                 <hr />
-
-
-
             </div> <!-- General end -->
-
-
-
-
-
         </div> <!-- Tab Body end -->
-
     </div> <!-- Card end -->
-
     </div> <!-- Column end -->
     <script src="{{ asset('js/drag.js') }}"></script>
 @endsection
