@@ -24,7 +24,7 @@ class UserController extends Controller
 			$user=User::create(['last_name'=>$request->input('last_name'),
 				'first_name'=>$request->input('first_name'),
 				'position'=>$request->input('position'),'email'=>$request->input('email'),
-				'password'=>bcrypt($request->input('password')),'is_admin'=>0]);
+				'password'=>bcrypt($request->input('password')),'user_group'=>1]);
 
 			$statistics=Statistic::create(['user_id'=>$user->id,'month'=>'January',
 				'year'=>date("Y"),'events'=>0,'events_closed'=>0]);

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\User;
 use App\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateClient;
+use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -22,7 +24,7 @@ class ClientController extends Controller
 
 	public function getAll($id = null)
 	{
-		if(Auth::user()->is_admin == 1){
+		if(Auth::user()->user_group > 1){
 			$clients = Client::all();
 		}
 		else {
@@ -50,6 +52,36 @@ class ClientController extends Controller
 			}
 		}
 		else return view('clients', ['clients' => $clients]);
+	}
+
+	public function getImported($id = null)
+	{
+		$clients = Client::where('user_id', 0)->orderBy('id', 'asc')->get();
+		if(isset($id) && $id != null) {
+			try {
+				$client = Client::findOrFail($id);
+				$managers = User::where('user_group', 1)->orderBy('id', 'asc')->get();
+			} catch(\Exception $e)
+			{
+				unset($id);
+				return view('import', ['clients' => $clients])->with('error', $e->getMessage());
+			}
+			return view('import', ['clients' => $clients, 'client_side' => $client, 'managers' => $managers]);
+		}
+		else return view('import', ['clients' => $clients]);
+	}
+
+	public function tether(Request $request)
+	{
+		try {
+			$client = Client::findOrFail($request->input('client_id'));
+			$client->user_id = $request->input('user_id');
+			$client->save();
+		} catch(\Exception $e)
+		{
+			return redirect()->back();
+		}
+		return redirect()->back();
 	}
 
 	public function getDesk($id = null)

@@ -19,6 +19,8 @@ Route::get('/clients/{id?}', 'ClientController@getALL')->name('clients');
 Route::post('/clients', 'ClientController@create')->name('client_create');
 Route::post('/client/take/{id}', 'ClientController@take')->name('client_take');
 Route::post('/client/transfer/{id}', 'ClientController@transfer')->name('client_transfer');
+Route::get('/client/imported/{id?}', 'ClientController@getImported')->name('clients_imported');
+Route::post('client/tether', 'ClientController@tether')->name('client_tether');
 
 Route::get('/events/{id?}', 'EventController@getALL')->name('events');
 Route::post('/events/{id}', 'EventController@complete')->name('event_delete');
@@ -37,7 +39,8 @@ Route::post('/user', 'UserController@create')->name('user_create');
 Route::get('/desk/{id?}', 'ClientController@getDesk')->name('desk');
 
 Route::get('/file', 'ExcelController@get')->name('file');
-Route::post('/file', 'ExcelController@importExcel')->name('import');
+Route::post('/file/import', 'ExcelController@importExcel')->name('excel_import');
+Route::post('/file/fields', 'ExcelController@getFields')->name('excel_fields');
 
 
 

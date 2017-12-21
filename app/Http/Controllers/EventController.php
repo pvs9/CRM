@@ -6,6 +6,7 @@ use App\Event;
 use App\User;
 use App\Client;
 use App\Events\EventCompleted;
+use App\Events\EventCreated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -76,6 +77,7 @@ class EventController extends Controller
 			$event->address = $request->input('address');
 			$event->comment = '';
 			$event->save();
+			event(new EventCreated());
 		} catch(\Exception $e)
 		{
 			return redirect()->back()->with('error', $e->getMessage());

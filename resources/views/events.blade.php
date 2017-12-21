@@ -12,9 +12,11 @@
 @section('menu')
     <ul class="navbar-nav mr-auto">
 
+        @if (Auth::user()->user_group > 1)
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('file') }}">Файл</a>
+            <a class="nav-link active" href="{{ route('file') }}">Файл</a>
         </li>
+        @endif
 
         <li class="nav-item ">
             <a class="nav-link active" href="{{ route('events') }}">События <span class="sr-only"></span></a>

@@ -20,7 +20,7 @@ class StatisticsController extends Controller
 
 	public function getUser()
 	{
-		if(Auth::user()->is_admin != 1) {
+		if(Auth::user()->user_group < 2) {
 			$january=Statistic::where(['user_id'=>Auth::id(),'month'=>'January',
 				'year'=>date("Y")])->first();
 			$february=Statistic::where(['user_id'=>Auth::id(),'month'=>'February',

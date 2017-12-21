@@ -24,7 +24,7 @@ class BuildTableSeeder extends Seeder
 			['user_id' => null, 'month' => 'November', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0],
 			['user_id' => null, 'month' => 'December', 'year' => date("Y"), 'events' => 0, 'events_closed' => 0]]);
 
-		DB::table('users')->insert(['last_name' => 'Администратор', 'first_name' => 'Администратор', 'email' => 'admin@admin.ru', 'password' => bcrypt('TheCRMAdministrator'), 'position' => 'Руководитель', 'is_admin' => 1]);
+		DB::table('users')->insert(['last_name' => 'Администратор', 'first_name' => 'Администратор', 'email' => 'admin@admin.ru', 'password' => bcrypt('TheCRMAdministrator'), 'position' => 'Руководитель', 'user_group' => 2]);
     }
 
 

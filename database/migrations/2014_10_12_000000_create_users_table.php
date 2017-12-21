@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
 			$table->string('email')->unique();
 			$table->string('password');
 			$table->string('position', 25);
-			$table->boolean('is_admin');
+			$table->integer('user_group');
 			$table->rememberToken();
 			$table->timestamps();
 			$table->softDeletes();

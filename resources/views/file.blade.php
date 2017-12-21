@@ -6,9 +6,11 @@
 @section('menu')
     <ul class="navbar-nav mr-auto">
 
+        @if (Auth::user()->user_group > 1)
         <li class="nav-item">
             <a class="nav-link active" href="{{ route('file') }}">Файл</a>
         </li>
+        @endif
 
         <li class="nav-item ">
             <a class="nav-link" href="{{ route('events') }}">События <span class="sr-only"></span></a>
@@ -46,7 +48,7 @@
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
-                                    @if (Session::has('error'))
+                                    @if(Session::has('error'))
                                         <li>{{ Session::get('error') }}</li>
                                     @endif
                                 </ul>
@@ -62,6 +64,8 @@
     			$('#errorModal').modal('show');
             </script>
     @endif
+
+    @isset($fields)
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
         <div class="card card-custom">
             <div class="card-header"><h3 class="search-header">Настройка полей</h3></div>
@@ -70,18 +74,31 @@
                 <div class="row">
                     <div class="col">
                         <h4>Поля системы</h4>
-                        <div class="field-block autoblock">Имя</div>
                         <div class="field-block autoblock">Фамилия</div>
+                        <div class="field-block autoblock">Имя</div>
+                        <div class="field-block autoblock">Отчество</div>
                         <div class="field-block autoblock">Компания</div>
-                        <div class="field-block autoblock">Жопа</div>
+                        <div class="field-block autoblock">Должность</div>
+                        <div class="field-block autoblock">E-mail</div>
+                        <div class="field-block autoblock">Телефон</div>
+                        <div class="field-block autoblock">Дополонительный телефон</div>
+                        <div class="field-block autoblock">Комментарий</div>
                     </div>
                     <div class="col">
                         <h4>Поля файла</h4>
                         <div id="dragfields">
-                            <div id="dragitem" class="field-block" draggable="true">Столбец1</div>
-                            <div id="dragitem" class="field-block" draggable="true">Столбец2</div>
-                            <div id="dragitem" class="field-block" draggable="true">Столбец3</div>
-                            <div id="dragitem"class="field-block" draggable="true">Столбец4</div>
+                            <form method="POST" action="{{ route('excel_import') }}">
+                            {{ csrf_field() }}
+
+                        @foreach($fields as $key=>$value)
+                            <div id="dragitem" class="field-block" draggable="true">
+                                <input type="hidden" name="fields[]" value="{{ $value }}">
+                                {{ $value }}
+                            </div>
+                                <input type="hidden" name="path" value="{{ $path }}">
+                        @endforeach
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Импорт</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -89,6 +106,7 @@
             </div> <!-- Card Body end -->
         </div> <!-- Card end -->
     </div> <!-- Column end -->
+    @endisset
 
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <div class="card card-custom">
@@ -107,7 +125,7 @@
                     <h5>Выберите файл</h5>
 
 
-                    <form method="POST" action="{{ route('import') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('excel_fields') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input name="excel" type="file" style="margin-bottom: 20px;">
 
