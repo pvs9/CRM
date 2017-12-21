@@ -81,7 +81,7 @@ class ClientController extends Controller
 		{
 			return redirect()->back();
 		}
-		return redirect()->back();
+		return redirect()->action('ClientController@getImported');
 	}
 
 	public function getDesk($id = null)
