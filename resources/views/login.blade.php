@@ -36,6 +36,7 @@
     			$('#errorModal').modal('show');
             </script>
     @endif
+    <div class="container signin">
         <form class="form-signin" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
 
@@ -48,6 +49,5 @@
             <hr/>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
         </form>
-
     </div> <!-- /container -->
 @endsection
